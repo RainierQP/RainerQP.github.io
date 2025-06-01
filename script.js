@@ -6,8 +6,8 @@ let app = new PIXI.Application({
     resolution: window.devicePixelRatio || 1
 });
 
-// Append the PIXI canvas to the pixelBackdrop div
-document.getElementById("pixelBackdrop").appendChild(app.view);
+// Append the PIXI canvas to the background div
+document.getElementById("background").appendChild(app.view);
 
 // Load the image for pixelation
 let imageUrl = "/assets/websiteBG";  // Replace with your image URL
