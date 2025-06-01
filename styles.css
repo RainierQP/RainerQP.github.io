@@ -10,6 +10,12 @@ html, body {
   font-family: Arial, sans-serif;
 }
 
+h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: 3rem;
+  color: white;
+}
+
 .background {
   position: absolute;
   top: 0;
@@ -38,9 +44,4 @@ main {
   justify-content: center;
   align-items: center;
   height: 100%;
-}
-
-h1 {
-  color: white;
-  font-size: 3rem;
 }
