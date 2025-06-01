@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Initialize the PIXI application once the DOM is fully loaded
+    // Initialize the PIXI application
     let app = new PIXI.Application({
         width: window.innerWidth,
         height: window.innerHeight,
@@ -7,24 +7,27 @@ document.addEventListener("DOMContentLoaded", function() {
         resolution: window.devicePixelRatio || 1
     });
 
-    // Log the app.view to ensure it's a valid PIXI canvas object
-    console.log(app.view); // This should log a <canvas> element
+    // Log the entire app object and check if the view is defined
+    console.log("App object:", app);
+    console.log("App view:", app.view); // Check if app.view is defined
 
-    // Now append the PIXI canvas to the background div
-    let backgroundDiv = document.querySelector(".background");
-    
-    // Check if backgroundDiv exists in the DOM
-    if (backgroundDiv) {
-        backgroundDiv.appendChild(app.view);
+    // Ensure that the app.view is available before appending
+    if (app.view) {
+        let backgroundDiv = document.querySelector(".background");
+        if (backgroundDiv) {
+            backgroundDiv.appendChild(app.view); // Append the PIXI canvas to the div
+        } else {
+            console.error("No element with class 'background' found.");
+        }
     } else {
-        console.error("No element with class 'background' found.");
+        console.error("PIXI application view is not initialized correctly.");
     }
 
     // Load the image for pixelation
-    let imageUrl = "/assets/websiteBG.png";  // Replace with your image URL (Ensure correct path)
+    let imageUrl = "/assets/websiteBG.png";  // Ensure correct image path
     let image = new Image();
     image.src = imageUrl;
-    
+
     image.onload = function() {
         // Once the image is loaded, create a PIXI texture from it
         let texture = PIXI.Texture.from(image);
