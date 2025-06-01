@@ -7,10 +7,10 @@ let app = new PIXI.Application({
 });
 
 // Append the PIXI canvas to the background div
-document.getElementById("background").appendChild(app.view);
+document.querySelector(".background").appendChild(app.view);
 
 // Load the image for pixelation
-let imageUrl = "/assets/websiteBG";  // Replace with your image URL
+let imageUrl = "/assets/websiteBG.png";  // Correct image path
 let image = new Image();
 image.src = imageUrl;
 image.onload = function() {
@@ -47,6 +47,13 @@ image.onload = function() {
     // Make sure the container is responsive to window resizing
     window.addEventListener("resize", function() {
         app.renderer.resize(window.innerWidth, window.innerHeight);
+        // Optionally, update the grid here if you want it to scale as well
+        let spriteWidth = image.width / gridCols;
+        let spriteHeight = image.height / gridRows;
+        container.children.forEach(sprite => {
+            sprite.x = sprite.coords.x * spriteWidth;
+            sprite.y = sprite.coords.y * spriteHeight;
+        });
     });
 
     // Mouse interaction - zoom in/out pixels based on mouse movement
@@ -59,7 +66,7 @@ image.onload = function() {
         let mouseY = e.data.global.y;
 
         // Apply some zoom effect to the pixels based on mouse position
-        zoomFactor = 1 + (mouseX / window.innerWidth * mouseSensitivity);
+        zoomFactor = Math.min(Math.max(1, 1 + (mouseX / window.innerWidth * mouseSensitivity)), 3); // Clamped zoom
 
         // Update the scale of the sprites based on the zoom factor
         container.children.forEach(sprite => {
